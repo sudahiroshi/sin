@@ -6,6 +6,7 @@ draw_sin = function( id, data ) {
 	var ctx = canvas.getContext('2d');
 
 	// 描画
+	ctx.clearRect( 0, 0, 360, 200 );
 	ctx.beginPath();
 	ctx.moveTo( 0, 100 );
 	for( var i=0; i<360; i++ ) {
@@ -23,4 +24,22 @@ calc_sin = function( freq, amp ) {
 		data[i] = amp * Math.sin( freq * i * Math.PI / 180.0 );
 	}
 	return data;
+}
+class Animation{
+	constructor() {
+		this.data = calc_sin( 1, 1 );
+		this.freq = 1;
+	}
+	time_sin = function() {
+		this.freq += 2;
+		let sindata = calc_sin( this.freq, 1.0/this.freq );
+
+		console.log( this.freq );
+		for( let i=0; i<360; i++ ) {
+			this.data[i] += sindata[i];
+		}
+		draw_sin( "sin3", this.data );
+		//draw_sin( "sin3", sindata );
+//		setTimeout( this.time_sin, 2000);
+	}
 }
