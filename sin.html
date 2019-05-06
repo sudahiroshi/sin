@@ -8,11 +8,27 @@
 		  <!-- 全ファイルを読み込んで準備ができたらここを実行 -->
 		  	x = {};
 			window.addEventListener( "load", function(){
-				x[0] = new Animation();
+				x[0] = new Animation( 'sin1' );
 				//setInterval( x[0].time_sin, 1000 );
 				document.getElementById('sin1').addEventListener('click', () => {
 					//console.log(x);
-					x[0].time_sin();
+					x[0].square();
+				});
+			}, false );
+			window.addEventListener( "load", function(){
+				x[1] = new Animation( 'sin2' );
+				//setInterval( x[0].time_sin, 1000 );
+				document.getElementById('sin2').addEventListener('click', () => {
+					//console.log(x);
+					x[1].triangle();
+				});
+			}, false );
+			window.addEventListener( "load", function(){
+				x[2] = new Animation( 'sin3' );
+				//setInterval( x[0].time_sin, 1000 );
+				document.getElementById('sin3').addEventListener('click', () => {
+					//console.log(x);
+					x[2].saw();
 				});
 			}, false );
 		</script>
@@ -20,8 +36,8 @@
 	</head>
 
 	<body>
-		<div>No.1<canvas id="sin1" width="360px" height="200px"></canvas></div>
-		<div>No.2<canvas id="sin2" width="360px" height="200px"></canvas></div>
-		<div>No.3<canvas id="sin3" width="360px" height="200px"></canvas></div>
+		<div>矩形波<canvas id="sin1" width="360px" height="200px"></canvas></div>
+		<div>三角波<canvas id="sin2" width="360px" height="200px"></canvas></div>
+		<div>ノコギリ波<canvas id="sin3" width="360px" height="200px"></canvas></div>
 	</body>
 </html>

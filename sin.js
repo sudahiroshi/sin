@@ -10,7 +10,7 @@ draw_sin = function( id, data ) {
 	ctx.beginPath();
 	ctx.moveTo( 0, 100 );
 	for( var i=0; i<360; i++ ) {
-		ctx.lineTo( i, -data[i] * 100.0 + 100 );
+		ctx.lineTo( i, -data[i] * 20.0 + 100 );
 	}
 	ctx.stroke();
 }
@@ -26,11 +26,13 @@ calc_sin = function( freq, amp ) {
 	return data;
 }
 class Animation{
-	constructor() {
+	constructor( target ) {
 		this.data = calc_sin( 1, 1 );
 		this.freq = 1;
+		this.target = target;
+		this.sign = -1;
 	}
-	time_sin = function() {
+	square = function() {
 		this.freq += 2;
 		let sindata = calc_sin( this.freq, 1.0/this.freq );
 
@@ -38,8 +40,34 @@ class Animation{
 		for( let i=0; i<360; i++ ) {
 			this.data[i] += sindata[i];
 		}
-		draw_sin( "sin3", this.data );
+		draw_sin( this.target, this.data );
 		//draw_sin( "sin3", sindata );
 //		setTimeout( this.time_sin, 2000);
 	}
+
+	triangle = function() {
+		this.freq += 2;
+		let sindata = calc_sin( this.freq, 1.0 * this.sign/(this.freq ** 2.0) );
+		this.sign = -this.sign
+
+		console.log( this.freq );
+		for( let i=0; i<360; i++ ) {
+			this.data[i] += sindata[i];
+		}
+		draw_sin( this.target, this.data );
+	}
+
+	saw = function() {
+		this.freq += 1;
+		let sindata = calc_sin( this.freq, this.sign * 2.0 / this.freq );
+		//let sindata = calc_sin( this.freq, 1.0 / this.freq );
+		this.sign = -this.sign
+
+		console.log( this.freq );
+		for( let i=0; i<360; i++ ) {
+			this.data[i] += sindata[i];
+		}
+		draw_sin( this.target, this.data );
+	}
+
 }
